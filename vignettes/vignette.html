@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2018-07-26" />
+<meta name="date" content="2018-12-06" />
 
 <title>Quantification of functional associations between a gene set and a single gene</title>
 
@@ -120,7 +120,7 @@ $(document).ready(function () {
 <h1 class="title toc-ignore">Quantification of functional associations between a gene set and a single gene</h1>
 <p class="author-name">Xu Chi<span class="affil-mark">1</span></p>
 <p class="author-affiliation"><span class="affil-mark">1</span>University of Pittsburgh, Cancer Institute, Pittsburgh, PA</p>
-<h4 class="date"><em>26 July 2018</em></h4>
+<h4 class="date"><em>6 December 2018</em></h4>
 
 </div>
 
@@ -145,13 +145,13 @@ $(document).ready(function () {
 <hr />
 <div id="uniconsig" class="section level2">
 <h2><span class="header-section-number">1.1</span> UniConSig</h2>
-<p>UniConSig is an algorithm to quantify the functional associations between a gene set and a single gene. The “functional associations” refers to the Domains, Pathways, GOs, Interactoms etc., which are the sources of the pre-compiled molecular concept database. The input is a set of genes which were grouped by a certain criteria, i.e. cancer genes, or genes down-regulated after knock down of a certain gene, or genes included in a certain pathway. The algorithm will give a score to each gene in the genome according to the similarities between the input gene set and the associated concepts. The scores are between 0 and 1, and the higher of the scores, the more related the genes to the input gene set.</p>
-<p>This algorithm is distinct from common learning algorithms in that it does not select features (each concept can be treated as a feature). Instead, it penalizes the concepts associated with a gene according to the similarities between these concepts. After the penalization, similar concepts will contribute to the final scores as if they were only one concepts(i.e. two or more identical concepts will be treated as only one concept). The final scores are taken by the average of the Jaccard Index between the input gene set and all the penalized concepts.</p>
+<p>UniConSig is an algorithm to quantify the functional associations between a gene set and a single gene. The â€œfunctional associationsâ€ refers to the Domains, Pathways, GOs, Interactoms etc., which are the sources of the pre-compiled molecular concept database. The input is a set of genes which were grouped by a certain criteria, i.e.Â cancer genes, or genes down-regulated after knock down of a certain gene, or genes included in a certain pathway. The algorithm will give a score to each gene in the genome according to the similarities between the input gene set and the associated concepts. The scores are between 0 and 1, and the higher of the scores, the more related the genes to the input gene set.</p>
+<p>This algorithm is distinct from common learning algorithms in that it does not select features (each concept can be treated as a feature). Instead, it penalizes the concepts associated with a gene according to the similarities between these concepts. After the penalization, similar concepts will contribute to the final scores as if they were only one concepts(i.e.Â two or more identical concepts will be treated as only one concept). The final scores are taken by the average of the Jaccard Index between the input gene set and all the penalized concepts.</p>
 <p>This R package uses a pre-calculated result dataset. The pre-calculation of the result avoids the majority of the unnecessary calculations and dramatically improves the efficiency. Because the dataset is relatively big, it was split into 4 parts. Users can reconstruct the total pre-calculated results following the examples in this vignette.</p>
 </div>
 <div id="csea" class="section level2">
 <h2><span class="header-section-number">1.2</span> CSEA</h2>
-<p>CSEA stands for “Concept Signature Enrichment Analysis”. It’s basically an extension of the well-established pathway analysis algorithm “GSEA” (Gene Set Enrichment Analysis). In contrast to GSEA, CSEA uses the output of uniConSig as the weight for each gene in genome and then perform weighted random walk k-s test for each of the testing pathway gene set. Specifically, before the weighted random walk k-s test, each gene is given a score based upon the functional association of this gene with the top 50 differentially expressed genes. The advantage of CSEA is that uniConSig can detect the underlying associations of a single gene to the differentially expressed gene set, which are not always directly included in the core pathway that responds to the change of biological circumstance.</p>
+<p>CSEA stands for â€œConcept Signature Enrichment Analysisâ€. Itâ€™s basically an extension of the well-established pathway analysis algorithm â€œGSEAâ€ (Gene Set Enrichment Analysis). In contrast to GSEA, CSEA uses the output of uniConSig as the weight for each gene in genome and then perform weighted random walk k-s test for each of the testing pathway gene set. Specifically, before the weighted random walk k-s test, each gene is given a score based upon the functional association of this gene with the top 50 differentially expressed genes. The advantage of CSEA is that uniConSig can detect the underlying associations of a single gene to the differentially expressed gene set, which are not always directly included in the core pathway that responds to the change of biological circumstance.</p>
 </div>
 </div>
 <div id="installation" class="section level1">
@@ -160,7 +160,7 @@ $(document).ready(function () {
 <p>To install this package, start R and enter:</p>
 <pre class="r"><code>## try http:// if https:// URLs are not supported
 source(&quot;https://bioconductor.org/biocLite.R&quot;)
-biocLite(&quot;uniConSigPreCal&quot;)</code></pre>
+biocLite(&quot;uniConSig&quot;)</code></pre>
 </div>
 <div id="examples" class="section level1">
 <h1><span class="header-section-number">3</span> Examples</h1>
@@ -168,7 +168,7 @@ biocLite(&quot;uniConSigPreCal&quot;)</code></pre>
 <div id="calculating-uniconsig-scores" class="section level2">
 <h2><span class="header-section-number">3.1</span> Calculating uniConSig scores</h2>
 <p>Attaching the package, download the pre-calculation file, and loading the pre-compiled data. The pre-calculation file is stored on github.</p>
-<pre class="r"><code>library(&quot;uniConSigPreCal&quot;)
+<pre class="r"><code>library(&quot;uniConSig&quot;)
 preCal.local&lt;-get_data_uniConSigPreCal()
 load(preCal.local)</code></pre>
 <p>This will create a new directory under the current working directory.</p>
@@ -190,7 +190,7 @@ result.my&lt;-cal_uniConSig(trList.my,preCal=preCal.data.all) </code></pre>
 <pre class="r"><code>result.uniConSig.DEG&lt;-cal_uniConSig(trList.DEG,preCal=preCal.data.all)
 result.csea.DEG.c2cp&lt;-CSEA(result.uniConSig.DEG,pathway.c2cp) # CSEA calculation
 head(result.csea.DEG.c2cp)</code></pre>
-<p>The results will be in the table “result.csea.DEG.c2cp”. For other use of CSEA, simply specify the input training gene list of interest.</p>
+<p>The results will be in the table â€œresult.csea.DEG.c2cpâ€. For other use of CSEA, simply specify the input training gene list of interest.</p>
 </div>
 </div>
 <div id="sessioninfo" class="section level1">
