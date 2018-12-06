@@ -1,10 +1,10 @@
 ## ----eval=FALSE------------------------------------------------------------
 #  ## try http:// if https:// URLs are not supported
 #  source("https://bioconductor.org/biocLite.R")
-#  biocLite("uniConSigPreCal")
+#  biocLite("uniConSig")
 
 ## ----eval=FALSE------------------------------------------------------------
-#  library("uniConSigPreCal")
+#  library("uniConSig")
 #  preCal.local<-get_data_uniConSigPreCal()
 #  load(preCal.local)
 
@@ -31,4 +31,3 @@ data(pathway.c2cp) #This package also includes a compiled list of hallmark gene 
 
 ## --------------------------------------------------------------------------
 sessionInfo()
-
