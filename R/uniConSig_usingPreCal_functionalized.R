@@ -344,7 +344,6 @@ CSEA<-function(result.uniConSig,posList,nPermu=1000){
 #' @keywords datasets
 #' @usage data(pathway.c2cp)
 #' @format A list of list, elements are entrez gene ids. Names of each sublist is the pathway's name
-NULL
 
 #For pathway.hallmark
 #' @title Pathway gene sets of HALLMARK from MSigDB
@@ -355,7 +354,6 @@ NULL
 #' @keywords datasets
 #' @usage data(pathway.hallmark)
 #' @format A list of list, elements are entrez gene ids. Names of each sublist is the pathway's name
-NULL
 
 #For trList.cgc
 #' @title Cancer gene sets from Cancer Gene Census
@@ -366,4 +364,4 @@ NULL
 #' @keywords datasets
 #' @usage data(trList.cgc)
 #' @format A list entrez gene ids.
-NULL
+
