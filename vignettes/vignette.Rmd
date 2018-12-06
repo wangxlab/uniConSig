@@ -32,7 +32,7 @@ To install this package, start R and enter:
 ```{r eval=FALSE}
 ## try http:// if https:// URLs are not supported
 source("https://bioconductor.org/biocLite.R")
-biocLite("uniConSigPreCal")
+biocLite("uniConSig")
 ```
 
 # Examples
@@ -42,7 +42,7 @@ biocLite("uniConSigPreCal")
 Attaching the package, download the pre-calculation file, and loading the pre-compiled data. The pre-calculation file is stored on github.
 
 ```{r eval=FALSE}
-library("uniConSigPreCal")
+library("uniConSig")
 preCal.local<-get_data_uniConSigPreCal()
 load(preCal.local)
 ```
