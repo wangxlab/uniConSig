@@ -13,4 +13,5 @@
 #' used in uniConSig, the rest are the molecular concepts which are <br>
 #' related to this gene and their coefficients.
 #' @examples
+#' data(preCal.data)
 NULL
