@@ -1,7 +1,7 @@
 Package: uniConSig
 Type: Package
 Title: Fast calculation of uniConSig and CSEA
-Version: 0.99.5
+Version: 0.99.6
 Depends: R (>= 3.5.0)
 Imports: utils
 Date: 2018-12-06
