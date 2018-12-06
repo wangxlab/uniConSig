@@ -31,7 +31,7 @@ CSEA stands for "Concept Signature Enrichment Analysis". It's basically an exten
 To install this package, start R and enter:
 ```{r eval=FALSE}
 ## try http:// if https:// URLs are not supported
-source("http://bioconductor.org/biocLite.R")
+source("https://bioconductor.org/biocLite.R")
 biocLite("uniConSig")
 ```
 
