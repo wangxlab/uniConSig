@@ -28,10 +28,10 @@ cal_weightMatrix<-function(trList){
     concept.weightDel<-c()
     concept.name<-c()
     print("Calculating weight matrix")
-    for(i in seq(1,length(file.concept))){
+    for(i in seq_along(file.concept)){
         tmp.line<-unlist(strsplit(file.concept[[i]],"\t"))
         if(length(tmp.line)-2>=5){
-            tmp.conceptVec<-tmp.line[seq(3,length(tmp.line))]
+            tmp.conceptVec<-tmp.line[seq_along(tmp.line)[-c(1:2)]]
             tmp.data<-as.numeric(unlist(strsplit(cal_conceptWeight(tmp.conceptVec,trList),"_")))
             concept.weight<-append(concept.weight,tmp.data[1]/tmp.data[2])
             concept.weightDel<-append(concept.weightDel,(tmp.data[1]-1)/tmp.data[2])
@@ -65,14 +65,14 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
     gene.id<-c()
     concept.info<-cal_weightMatrix(trList)
     print("Calculating uniConSig scores")
-    for(j in seq(1,length(preCal))){
+    for(j in seq_along(preCal)){
         tmp.line<-unlist(strsplit(preCal[[j]],"\t"))
         concept.name<-c()
         concept.epsilon<-c()
-        for(i in seq(3,length(tmp.line))){
+        for(i in seq_along(tmp.line)[-c(1:2)]){
             tmp.info<-unlist(strsplit(tmp.line[i],"_"))
             if(length(tmp.info)>2){
-                concept.name<-append(concept.name,paste(tmp.info[seq(1,(length(tmp.info)-1))],collapse="_"))
+                concept.name<-append(concept.name,paste(tmp.info[seq_along(tmp.info[-1])],collapse="_"))
             }else{
                 concept.name<-append(concept.name,tmp.info[1])
             }
@@ -221,7 +221,7 @@ perm_weightedKS_ofCSEA<-function(weights,numOnList,nPermu=1000){
 construct_permuList<-function(weights.cp,posList,nPermu=1000){
     myPermu<-list()
     n<-0
-    for(k in seq(1,length(posList))){
+    for(k in seq_along(posList)){
         numOnList.call<-length(weights.cp[which(names(weights.cp) %in% posList[[k]])])
         if(numOnList.call<6){
         }else{
@@ -261,7 +261,7 @@ construct_permuList<-function(weights.cp,posList,nPermu=1000){
 weightedKS_ofCSEA<-function(weights,positiveList,myPermu,nPermu=1000){
     NESResult<-c()
     pVResult<-c()
-    for(k in seq(1,length(positiveList))){
+    for(k in seq_along(positiveList)){
         myCumNorWeight<-cal_cumNorWeight(weights,positiveList[[k]])
         ES<-findES(myCumNorWeight)
         numOnList<-length(weights[which(names(weights) %in% positiveList[[k]])])
@@ -340,7 +340,7 @@ CSEA<-function(result.uniConSig,posList,nPermu=1000){
 #' @name pathway.c2cp
 #' @description Compiled gene sets from MSigdDB c2cp
 #' @docType data
-#' @author Xu Chi (original data from MSigDB c2cp) \email{xuc13@@pitt.edu}
+#' @author Xu Chi (original data from MSigDB c2cp) \email{wangxlab2018@gmail.com}
 #' @keywords datasets
 #' @usage data(pathway.c2cp)
 #' @format A list of list, elements are entrez gene ids. Names of each sublist is the pathway's name
