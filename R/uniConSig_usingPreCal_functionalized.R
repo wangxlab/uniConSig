@@ -24,7 +24,7 @@ cal_conceptWeight<-function(conceptVec,trList){ #conceptVec contains only the el
 #' trList.call<-4:12
 #' tmp.data<-cal_conceptWeight(tmp.conceptVec,trList.call) #split the number of intersection/union.
 #' @export
-library(vegan)
+# library(vegan)
 cal_conceptWeight_continuous<-function(conceptVec,triVec){ #conceptVec contains only the element ids of the concept
   geneID.all<-length(union(triVec,conceptVec))
   geneID.intersect<-length(intersect(triVec,conceptVec))
