@@ -123,6 +123,28 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
 }
 
 
+#' @title Fetch pre-calculated data from github for uniConSig calculation
+#' @param file.data A string which specifies the name of the data file to be fetched from github. Default is preCal.data.all.RData
+#' @param dir.local A string which specifies the name of the directory where the data file will be saved. Need "/" at the end of the string.
+#' @description Download the pre-calculated data from github. Returns the name of the downloaded file with the path to it.
+#' @return The name of the downloaded file with the path to it.
+#' @examples
+#' #For the data required in uniConSig calculation:
+#' #preCal.local<-get_data_uniConSigPreCal()
+#' #load(preCal.local)
+#' @export
+get_data_uniConSigPreCal<-function(file.data="preCal.data.all.RData",dir.local="./data.uniConSigPreCal/"){
+    dir.remote<-"https://github.com/wangxlab/data_uniConSigPreCal/raw/master/"
+    if(!dir.exists(dir.local)){
+      dir.create(dir.local)
+      print(paste("Directory '",dir.local,"' doesn't exist, created new one.",sep=""))
+    }
+    url.call<-paste(dir.remote,file.data,sep="")
+    file.local<-paste(dir.local,file.data,sep="")
+    download.file(url.call,file.local)
+    return(file.local)
+}
+
 ##############################################################CSEA#################################################################
 
 #' @title Calculate cumulative normalized weights
