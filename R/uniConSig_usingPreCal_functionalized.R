@@ -69,7 +69,7 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
         tmp.line<-unlist(strsplit(preCal[[j]],"\t"))
         concept.name<-c()
         concept.epsilon<-c()
-        for(i in seq_along(tmp.line)[-c(1:2)]){
+        for(i in seq(3,length(tmp.line))){
             tmp.info<-unlist(strsplit(tmp.line[i],"_"))
             if(length(tmp.info)>2){
                 concept.name<-append(concept.name,paste(tmp.info[seq_along(tmp.info[-1])],collapse="_"))
