@@ -1,5 +1,5 @@
 Changes in version 0.99.13 (2019-01-05)
-+ I uploaded "preCal.data.rd" to Data folder. So, users don't need to download "preCal.data"
++ I uploaded "preCal.data.rda" to Data folder. So, users don't need to download "preCal.data"
 + I deleted "get_data_uniConSigPreCal()" function in "uniConSig_usingPreCal_functionalized.R."  This function is not necessary any more.
 + I deleted this function's namespace
 + I revised vignettes accordingly.
