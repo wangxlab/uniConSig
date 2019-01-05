@@ -43,7 +43,7 @@ cal_weightMatrix<-function(trList){
     concept.weightDel<-c()
     concept.name<-c()
     print("Calculating weight matrix")
-    for(i in seq(1,length(file.concept))){
+    for(i in seq_along(file.concept)){
         tmp.line<-unlist(strsplit(file.concept[[i]],"\t"))
         if(length(tmp.line)-2>=5){
             tmp.conceptVec<-tmp.line[seq(3,length(tmp.line))]
@@ -80,7 +80,7 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
     gene.id<-c()
     concept.info<-cal_weightMatrix(trList)
     print("Calculating uniConSig scores")
-    for(j in seq(1,length(preCal))){
+    for(j in seq_along(preCal)){
         tmp.line<-unlist(strsplit(preCal[[j]],"\t"))
         concept.name<-c()
         concept.epsilon<-c()
@@ -236,7 +236,7 @@ perm_weightedKS_ofCSEA<-function(weights,numOnList,nPermu=1000){
 construct_permuList<-function(weights.cp,posList,nPermu=1000){
     myPermu<-list()
     n<-0
-    for(k in seq(1,length(posList))){
+    for(k in seq_along(posList)){
         numOnList.call<-length(weights.cp[which(names(weights.cp) %in% posList[[k]])])
         if(numOnList.call<6){
         }else{
@@ -276,7 +276,7 @@ construct_permuList<-function(weights.cp,posList,nPermu=1000){
 weightedKS_ofCSEA<-function(weights,positiveList,myPermu,nPermu=1000){
     NESResult<-c()
     pVResult<-c()
-    for(k in seq(1,length(positiveList))){
+    for(k in seq_along(positiveList)){
         myCumNorWeight<-cal_cumNorWeight(weights,positiveList[[k]])
         ES<-findES(myCumNorWeight)
         numOnList<-length(weights[which(names(weights) %in% positiveList[[k]])])
