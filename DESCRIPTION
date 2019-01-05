@@ -2,7 +2,7 @@ Package: uniConSig
 Type: Package
 Title: Fast calculation of uniConSig and CSEA
 Version: 0.99.12
-Depends: R (>= 3.5.0)
+Depends: R (>= 3.6.0)
 Imports: utils
 Date: 2018-12-06
 Author: Xu Chi, Sanghoon Lee, Xiaosong Wang
