@@ -18,6 +18,9 @@ This file provides the coefficients for uniConSig calculation. <br> The details 
 \details{
 uniConSigData.
 }
+\examples{
+data(preCal.data)
+}
 \author{
 Xu Chi <wangxlab2018@gmail.com>
 }
