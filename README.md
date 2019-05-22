@@ -57,29 +57,24 @@ The other compiled pathway collection in this package is the C2CP of MSigdb. To 
 > result.CSEA.c2cp<-CSEA(myResult,pathway.c2cp)
 
 User can also define their own pathway gene sets. The object of the input pathway gene sets is a list, which can be created like this:
-> pathway.my<-list()
-
-> pathway.my[[1]]<-c(7249,3479,27330,2475,1975,1977,1978,253260,3630,5228,8408,6009,673,3091,5170,57521,207)
-
-> pathway.my[[2]]<-c(595,596,1869,317,581,1017,1019,4193,5925,1026,7157,1647,472,7078,5111,898)
-
-> names(pathway.my)<-c("KEGG_MTOR_SIGNALING_PATHWAY","BIOCARTA_P53_PATHWAY")
-
+> pathway.my<-list()<br />
+> pathway.my[[1]]<-c(7249,3479,27330,2475,1975,1977,1978,253260,3630,5228,8408,6009,673,3091,5170,57521,207)<br />
+> pathway.my[[2]]<-c(595,596,1869,317,581,1017,1019,4193,5925,1026,7157,1647,472,7078,5111,898)<br />
+> names(pathway.my)<-c("KEGG_MTOR_SIGNALING_PATHWAY","BIOCARTA_P53_PATHWAY")<br />
 
 These codes create a list named “pathway.my”, which contains two pathways, one is consisted of entrez gene IDs KEGG_MTOR_SIGNALING_PATHWAY from MSigdb C2CP pathway collection, and the other one BIOCARTA_P53_PATHWAY“5,6,7,8,…15”. Then run:
 > result.CSEA.my<-CSEA(myResult,pathway.my)
 
-[1] "Calculating permutations..."
-[1] "Done."
-[1] "Calculating NES"
+[1] "Calculating permutations..."<br />
+[1] "Done."<br />
+[1] "Calculating NES"<br />
 
 
 The result is consisted of 3 columns, the names of the pathways, the normalized enrichment scores(NES), and the p-values. You can see the first several rows of the result by;
 > head(result.CSEA.my)
 
-
-                        names      NES pValue <br/>  
-1        BIOCARTA_P53_PATHWAY 1.932083  0.000 <br/>
-2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057 
+                        names      NES pValue <br />  
+1        BIOCARTA_P53_PATHWAY 1.932083  0.000 <br />
+2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057 <br />
 
 
