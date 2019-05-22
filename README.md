@@ -47,14 +47,11 @@ To run uniConSig based on the total dataset, run:
 __C. How to run CSEA__
 
 The result of uniConSig can be directly put into CSEA calculation. Before calculation of CSEA, we have to define the pathways(gene sets) that we want to test. To use the hallmark gene sets from MSigdb, for example, run:
-> data(pathway.hallmark)
-
-> result.CSEA.hallmark<-CSEA(myResult,pathway.hallmark)
-
-The other compiled pathway collection in this package is the C2CP of MSigdb. To use C2CP pathways, run:
-> data(pathway.c2cp)
-
-> result.CSEA.c2cp<-CSEA(myResult,pathway.c2cp)
+> data(pathway.hallmark)<br />
+> result.CSEA.hallmark<-CSEA(myResult,pathway.hallmark)<br /><br />
+The other compiled pathway collection in this package is the C2CP of MSigdb. To use C2CP pathways, run:<br />
+> data(pathway.c2cp)<br />
+> result.CSEA.c2cp<-CSEA(myResult,pathway.c2cp)<br />
 
 User can also define their own pathway gene sets. The object of the input pathway gene sets is a list, which can be created like this:
 > pathway.my<-list()<br />
@@ -71,9 +68,8 @@ These codes create a list named “pathway.my”, which contains two pathways, o
 
 
 The result is consisted of 3 columns, the names of the pathways, the normalized enrichment scores(NES), and the p-values. You can see the first several rows of the result by;
-> head(result.CSEA.my)
-
-                        names      NES pValue <br />  
+> head(result.CSEA.my)<br />
+                        names      NES pValue<br />  
 1        BIOCARTA_P53_PATHWAY 1.932083  0.000 <br />
 2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057 <br />
 
