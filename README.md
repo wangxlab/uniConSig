@@ -78,8 +78,8 @@ The result is consisted of 3 columns, the names of the pathways, the normalized 
 > head(result.CSEA.my)
 
 
-                        names      NES pValue   
-1        BIOCARTA_P53_PATHWAY 1.932083  0.000
-2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057
+                        names      NES pValue <br/>  
+1        BIOCARTA_P53_PATHWAY 1.932083  0.000 <br/>
+2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057 
 
 
