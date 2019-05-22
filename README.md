@@ -3,9 +3,8 @@ Universal Concept Signature Analysis: Genome-Wide Quantification of New Biologic
 
 The current version is 0.99.13 (May 21st, 2019)
 
-<html>
-<body>
-**<p>A. How to install uniConSig</b></p>**
+
+__A. How to install uniConSig__
 
 1. Install the package “devtools” by running the following code in R: 
 >install.packages(“devtools”)
