@@ -23,9 +23,9 @@ __B. How to run uniConSig__
 
 For uniConSig calculation, the input is a vector containing the entrez gene IDs of the user-defined genes. User can create the vector by various methods. One simple method is to type the IDs one by one like this:
 
-> myInput<-c(7157,4609,1:10)
+> myInput<-c(7518,4361,27343,27434,731751,79840,3981,2237,1791,7520,10111,2547,5591,644217157,4609,1:10)
 
-The first two IDs are TP53 and MYC, the rest of IDs are just for illustration. Although there’s no restrictions on the number of genes in the input vector, we highly recommend that the input includes at least 30 genes, and the input genes should be highly related to one criterion. Random or unrelated input genes will result in the ambiguous result and it will be difficult to implicate the biological meaning of the uniConSig scores. 
+This gene set was taken from MSigdb’s pathway collection “KEGG_NON_HOMOLOGOUS_END_JOINING”. Although there’s no restrictions on the number of genes in the input vector, we highly recommend that the input includes at least 30 genes, and the input genes should be highly related to one criterion. Random or unrelated input genes will result in the ambiguous result and it will be difficult to implicate the biological meaning of the uniConSig scores. 
 
 To calculate uniConSig scores, simply run:
 > myResult<-cal_uniConSig(myInput)
@@ -59,13 +59,25 @@ The other compiled pathway collection in this package is the C2CP of MSigdb. To 
 User can also define their own pathway gene sets. The object of the input pathway gene sets is a list, which can be created like this:
 > pathway.my<-list()
 
-> pathway.my[[1]]<-1:10
+> pathway.my[[1]]<-c(7249,3479,27330,2475,1975,1977,1978,253260,3630,5228,8408,6009,673,3091,5170,57521,207)1:10
 
-> pathway.my[[2]]<-5:15
+> pathway.my[[2]]<-c(595,596,1869,317,581,1017,1019,4193,5925,1026,7157,1647,472,7078,5111,898)5:15
+> names(pathway.my)<-c("KEGG_MTOR_SIGNALING_PATHWAY","BIOCARTA_P53_PATHWAY")
 
-These codes create a list named “pathway.my”, which contains two pathways, one is consisted of entrez gene IDs “1,2,3,4,…10”, and the other one “5,6,7,8,…15”. Then run:
+
+These codes create a list named “pathway.my”, which contains two pathways, one is consisted of entrez gene IDs KEGG_MTOR_SIGNALING_PATHWAY from MSigdb C2CP pathway collection, and the other one BIOCARTA_P53_PATHWAY“5,6,7,8,…15”. Then run:
 > result.CSEA.my<-CSEA(myResult,pathway.my)
+
+[1] "Calculating permutations..."
+[1] "Done."
+[1] "Calculating NES"
+
 
 The result is consisted of 3 columns, the names of the pathways, the normalized enrichment scores(NES), and the p-values. You can see the first several rows of the result by;
 > head(result.CSEA.my)
+
+                        names      NES pValue
+1        BIOCARTA_P53_PATHWAY 1.932083  0.000
+2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057
+
 
