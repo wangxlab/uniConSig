@@ -1,5 +1,5 @@
 
-*Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways
+__Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways__
 
 The current version is 0.99.13 (May 21st, 2019)
 
@@ -15,6 +15,7 @@ __A. How to install uniConSig__
 
 3. To use the uniConSig package, first load the package:
 > library(uniConSig)
+
 
 
 __B. How to run uniConSig__
