@@ -3,7 +3,9 @@ Universal Concept Signature Analysis: Genome-Wide Quantification of New Biologic
 
 The current version is 0.99.13 (May 21st, 2019)
 
-A. How to install uniConSig
+<html>
+<body>
+**<p>A. How to install uniConSig</b></p>**
 
 1. Install the package “devtools” by running the following code in R: 
 >install.packages(“devtools”)
@@ -58,4 +60,6 @@ These codes create a list named “pathway.my”, which contains two pathways, o
 > result.CSEA.my<-CSEA(myResult,pathway.my)
 
 The result is consisted of 3 columns, the names of the pathways, the normalized enrichment scores(NES), and the p-values.
-
+{:/}
+</body>
+</html>
