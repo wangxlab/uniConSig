@@ -10,8 +10,7 @@ __A. How to install uniConSig__
 >install.packages(“devtools”)
 
 2. You can install uniConSig from Github by running the following codes in R:
->library(devtools)
-
+>library(devtools)<br />
 >install_github("wangxlab/uniConSig")
 
 3. To use the uniConSig package, first load the package:
@@ -71,8 +70,9 @@ These codes create a list named “pathway.my”, which contains two pathways, o
 The result is consisted of 3 columns, the names of the pathways, the normalized enrichment scores(NES), and the p-values. You can see the first several rows of the result by;
 > head(result.CSEA.my)
 
-                        names      NES pValue
-                        
+                       
+                       
+                        names      NES  pValue                 
 1        BIOCARTA_P53_PATHWAY 1.932083  0.000 <br />
 2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057 <br />
 
