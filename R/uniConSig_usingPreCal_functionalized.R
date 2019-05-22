@@ -134,7 +134,7 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
 #' #load(preCal.local)
 #' @export
 get_data_uniConSigPreCal<-function(file.data="preCal.data.all.RData",dir.local="./data.uniConSigPreCal/"){
-    dir.remote<-"https://github.com/wangxlab/data_uniConSigPreCal/blob/master/"
+    dir.remote<-"https://github.com/wangxlab/data_uniConSigPreCal/raw/master/"
     if(!dir.exists(dir.local)){
       dir.create(dir.local)
       print(paste("Directory '",dir.local,"' doesn't exist, created new one.",sep=""))
