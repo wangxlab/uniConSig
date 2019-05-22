@@ -1,7 +1,7 @@
 
 __Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways__
 
-The current version is 0.99.13 (May 21st, 2019)
+The current version is 0.99.13 (May 21st, 2019). The uniConSig and CSEA run on R version 3.6.0
 
 
 __A. How to install uniConSig__
