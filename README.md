@@ -1,5 +1,5 @@
 
-__Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways__
+##Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways
 
 The current version is 0.99.13 (May 21st, 2019)
 
@@ -19,6 +19,7 @@ __A. How to install uniConSig__
 
 
 __B. How to run uniConSig__
+
 For uniConSig calculation, the input is a vector containing the entrez gene IDs of the user-defined genes. User can create the vector by various methods. One simple method is to type the IDs one by one like this:
 
 > myInput<-c(7157,4609,1:10)
@@ -43,6 +44,7 @@ To run uniConSig based on the total dataset, run:
 
 
 __C. How to run CSEA__
+
 The result of uniConSig can be directly put into CSEA calculation. Before calculation of CSEA, we have to define the pathways(gene sets) that we want to test. To use the hallmark gene sets from MSigdb, for example, run:
 > data(pathway.hallmark)
 > result.CSEA.hallmark<-CSEA(myResult,pathway.hallmark)
