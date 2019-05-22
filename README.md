@@ -62,6 +62,7 @@ User can also define their own pathway gene sets. The object of the input pathwa
 > pathway.my[[1]]<-c(7249,3479,27330,2475,1975,1977,1978,253260,3630,5228,8408,6009,673,3091,5170,57521,207)
 
 > pathway.my[[2]]<-c(595,596,1869,317,581,1017,1019,4193,5925,1026,7157,1647,472,7078,5111,898)
+
 > names(pathway.my)<-c("KEGG_MTOR_SIGNALING_PATHWAY","BIOCARTA_P53_PATHWAY")
 
 
@@ -69,9 +70,7 @@ These codes create a list named “pathway.my”, which contains two pathways, o
 > result.CSEA.my<-CSEA(myResult,pathway.my)
 
 [1] "Calculating permutations..."
-
 [1] "Done."
-
 [1] "Calculating NES"
 
 
@@ -79,10 +78,8 @@ The result is consisted of 3 columns, the names of the pathways, the normalized 
 > head(result.CSEA.my)
 
 
-                        names      NES pValue
-                        
+                        names      NES pValue   
 1        BIOCARTA_P53_PATHWAY 1.932083  0.000
-
 2 KEGG_MTOR_SIGNALING_PATHWAY 1.357480  0.057
 
 
