@@ -77,7 +77,7 @@ __E.	How to run CSEA analysis to interpret the pathways underlying a target gene
 
 •	Second, calculate the uniConSig scores for this target gene list:
 
->preCal.local<-get_data_uniConSigPreCal ()
+>preCal.local<-get_data_uniConSigPreCal()
 
 >load (preCal.local)
 
