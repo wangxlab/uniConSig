@@ -1,24 +1,45 @@
 
+__How to use uniConSig and CSEA R modules__
+
 __Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways__
 
-The current version is 0.99.13 (May 21st, 2019). The uniConSig and CSEA run on R version 3.6.0
+The current version is 0.99.13 (May 21st, 2019). The uniConSig and CSEA were built on R version 3.6.0
 
 
-__A. How to install uniConSig__
+__A. Introduction__
 
-1. Install the package “devtools” by running the following code in R: 
+•	Identifying new gene functions and pathways underlying diseases and biological processes are major challenges in genomics research. Particularly most methods for interpreting the pathways characteristic of a gene list of interest are limited by their dependence on assessing the overlapping genes or their interactome topology, which cannot account for the variety of functional relations. This is particularly problematic for pathway discovery from single cell genomics with low gene coverage, or interpreting complex pathway changes i.e. during change of cell states. 
+
+•	Here we exploited the comprehensive sets of molecular concepts that combine ontologies, pathways, interactions, and domains to help inform the functional relations. 
+
+•	We first developed a __universal Concept Signature (uniConSig) analysis__ for genome-wide quantification of new gene functions underlying biological or pathological processes based on the signature molecular concepts computed from known functional gene lists. 
+
+•	We then further developed a novel __Concept Signature Enrichment Analysis (CSEA)__ for deep interpretation of the pathways enriched in a gene list of interest defined by genomic data. This method is grounded on the framework of shared concept signatures between gene sets at multiple functional levels, thus overcomes the limitations of the current methods. 
+
+•	Through meta-analysis of transcriptomic datasets of cancer cell line models and single hematopoietic stem cells, we demonstrate the broad applications of CSEA on pathway discovery from gene expression and single cell transcriptomic datasets for genetic perturbations and change of cell states.
+
+
+__B.	Basic requirements__
+
+•	The uniConSig and CSEA modules are compiled in an R package “uniConSig” held at https://github.com/wangxlab/uniConSig. 
+•	To install the package, first install R from CRAN: https://cran.r-project.org/
+•	For more user-friendly interface, R-Studio can be installed from here: https://www.rstudio.com/products/rstudio/download/
+
+
+__C. How to install uniConSig__
+
+•	First, please install the package “devtools” by running the following code in R:
 >install.packages(“devtools”)
 
-2. You can install uniConSig from Github by running the following codes in R:
+•	Second, please install uniConSig from Github by running the following codes in R:
 >library(devtools)<br />
 >install_github("wangxlab/uniConSig")
 
-3. To use the uniConSig package, first load the package:
+•	To use the uniConSig package, first load the package:
 > library(uniConSig)
 
 
-
-__B. How to run uniConSig__
+__D.	How to run uniConSig analysis for the discovery of new gene functions underlying certain diseases or biological processes__
 
 For uniConSig calculation, the input is a vector containing the entrez gene IDs of the user-defined genes. User can create the vector by various methods. One simple method is to type the IDs one by one like this:
 
