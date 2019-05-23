@@ -22,7 +22,9 @@ __A. Introduction__
 __B.	Basic requirements__
 
 •	The uniConSig and CSEA modules are compiled in an R package “uniConSig” held at https://github.com/wangxlab/uniConSig. 
+
 •	To install the package, first install R from CRAN: https://cran.r-project.org/
+
 •	For more user-friendly interface, R-Studio can be installed from here: https://www.rstudio.com/products/rstudio/download/
 
 
