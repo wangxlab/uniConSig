@@ -92,6 +92,7 @@ __E.	How to run CSEA analysis to interpret the pathways underlying a target gene
 •	To run CSEA against the C2CP pathway gene sets, please run:
 
 > data(pathway.c2cp)
+
 > result.CSEA.c2cp<-CSEA(myResult, pathway.c2cp)
 
 •	The result object is a data frame containing the names of the pathways included in the pathway gene sets sorted the normalized enrichment scores (NES) together with the p-values.
