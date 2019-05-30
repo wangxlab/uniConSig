@@ -95,7 +95,7 @@ __E.	How to run CSEA analysis to interpret the pathways underlying a target gene
 
 > result.CSEA.c2cp<-CSEA(myResult, pathway.c2cp)
 
-•	The result object is a data frame containing the names of the pathways included in the pathway gene sets sorted the normalized enrichment scores (NES) together with the p-values.
+•	The result object is a data frame containing the names of the pathways included in the pathway gene sets sorted the normalized enrichment scores (NES) together with the p-values and q-values.
 
 •	User can also define their own pathway gene sets. The object of the input pathway gene sets is a list, which can be created as below:
 
