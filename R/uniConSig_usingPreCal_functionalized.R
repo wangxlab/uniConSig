@@ -5,8 +5,8 @@
 #' @description analyze two gene sets(one training, one concept), return the number of intersected and united genes
 #' @return "numberOfIntersection_numberOfUnion"
 #' @examples
-#' tmp.conceptVec<-1:10
-#' trList.call<-4:12
+#' tmp.conceptVec<-seq_len(10)
+#' trList.call<-seq(4,12)
 #' tmp.data<-cal_conceptWeight(tmp.conceptVec,trList.call) #split the number of intersection/union.
 #' @export
 cal_conceptWeight<-function(conceptVec,trList){ #conceptVec contains only the element ids of the concept
@@ -14,36 +14,21 @@ cal_conceptWeight<-function(conceptVec,trList){ #conceptVec contains only the el
     geneID.intersect<-length(intersect(trList,conceptVec))
     return(paste(geneID.intersect,"_",geneID.all,sep=""))
 }
-#' @title calculate concept weight
-#' @param conceptVec A vector containing only the element ids of a concept
-#' @param trList A vector containing all the training gene ids.
-#' @description analyze two gene sets(one training, one concept), return the number of intersected and united genes
-#' @return "numberOfIntersection_numberOfUnion"
-#' @examples
-#' tmp.conceptVec<-1:10
-#' trList.call<-4:12
-#' tmp.data<-cal_conceptWeight(tmp.conceptVec,trList.call) #split the number of intersection/union.
-#' @export
-# library(vegan)
-cal_conceptWeight_continuous<-function(conceptVec,triVec){ #conceptVec contains only the element ids of the concept
-  geneID.all<-length(union(triVec,conceptVec))
-  geneID.intersect<-length(intersect(triVec,conceptVec))
-  return(paste(geneID.intersect,"_",geneID.all,sep=""))
-}
+
 #' @title load concept database from gmt, calculate concept weights, process the file one line at a time
 #' @param trList A vector containing all the training gene ids.
 #' @description calculate concept weight between the training gene set and concepts, with/without penalty for over-representing gene
 #' @return A matrix containing two types of concept weights
 #' @examples
-#' trList.call<-1:100
+#' trList.call<-seq_len(100)
 #' concept.info<-cal_weightMatrix(trList.call)
 #' @export
 cal_weightMatrix<-function(trList){
     concept.weight<-c()
     concept.weightDel<-c()
     concept.name<-c()
-    print("Calculating weight matrix")
-    for(i in seq_along(file.concept)){
+    message("Calculating weight matrix")
+    for(i in seq_len(length(file.concept))){
         tmp.line<-unlist(strsplit(file.concept[[i]],"\t"))
         if(length(tmp.line)-2>=5){
             tmp.conceptVec<-tmp.line[seq(3,length(tmp.line))]
@@ -53,7 +38,7 @@ cal_weightMatrix<-function(trList){
             concept.name<-append(concept.name,tmp.line[1])
         }
         if(i %% 10000==0){
-            print(paste("Processed ",i," lines",sep=""))
+            message(paste("Processed ",i," lines",sep=""))
         }
     }
     concept.tmpInfo<-data.frame(concept.name,concept.weight,concept.weightDel)
@@ -67,7 +52,7 @@ cal_weightMatrix<-function(trList){
 #' @return A matrix with 3 columns: gene ID, gene Name, and uniConSig score
 #' @examples
 #' #For customized training list:
-#' trList.call<-1:10 #read customized training list
+#' trList.call<-seq_len(10) #read customized training list
 #' result<-cal_uniConSig(trList.call) #calculate uniConSig
 #' #To do full calculation:
 #' #preCal.local<-get_data_uniConSigPreCal()
@@ -79,8 +64,8 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
     gene.score<-c()
     gene.id<-c()
     concept.info<-cal_weightMatrix(trList)
-    print("Calculating uniConSig scores")
-    for(j in seq_along(preCal)){
+    message("Calculating uniConSig scores")
+    for(j in seq_len(length(preCal))){
         tmp.line<-unlist(strsplit(preCal[[j]],"\t"))
         concept.name<-c()
         concept.epsilon<-c()
@@ -105,23 +90,22 @@ cal_uniConSig<-function(trList,preCal=preCal.data){
         tmp.score<-tmp.sum/sqrt(as.numeric(tmp.line[2]))
         gene.score<-append(gene.score,tmp.score)
         gene.id<-append(gene.id,tmp.line[1])
-        #print(paste(tmp.line[1],tmp.score,sep="\t"))
+        #message(paste(tmp.line[1],tmp.score,sep="\t"))
         j=j+1
         if(j %% 10000==0){
-            print(paste("Processed ",j," genes",sep=""))
+            message(paste("Processed ",j," genes",sep=""))
         }
     }
     result<-data.frame(gene.id,gene.score)
     result<-merge(gene.anno,result,by="gene.id")
-    print("Done.Sorting,and scaling...")
+    message("Done.Sorting,and scaling...")
     result<-result[order(result$gene.score,decreasing=TRUE),]
     result[result$gene.score=="NaN",3]<-0
     #result<-result[!result$gene.score=="NaN",]
     result$gene.score<-result$gene.score/max(result$gene.score)
-    print("Done.")
+    message("Done.")
     return(result)
 }
-
 
 #' @title Fetch pre-calculated data from github for uniConSig calculation
 #' @param file.data A string which specifies the name of the data file to be fetched from github. Default is preCal.data.all.RData
@@ -137,15 +121,13 @@ get_data_uniConSigPreCal<-function(file.data="preCal.data.all.RData",dir.local="
     dir.remote<-"https://github.com/wangxlab/data_uniConSigPreCal/raw/master/"
     if(!dir.exists(dir.local)){
       dir.create(dir.local)
-      print(paste("Directory '",dir.local,"' doesn't exist, created new one.",sep=""))
+      message(paste("Directory '",dir.local,"' doesn't exist, created new one.",sep=""))
     }
     url.call<-paste(dir.remote,file.data,sep="")
     file.local<-paste(dir.local,file.data,sep="")
     download.file(url.call,file.local)
     return(file.local)
 }
-
-
 
 ##############################################################CSEA#################################################################
 
@@ -156,10 +138,10 @@ get_data_uniConSigPreCal<-function(file.data="preCal.data.all.RData",dir.local="
 #' @return A vector of cumulative normalized weights
 #' @examples 
 #' weight.call<-c(0.1,0.2,0.5,0.7,0.9,1)
-#' names(weight.call)<-1:6
+#' names(weight.call)<-seq_len(6)
 #' pathway.my<-list()
-#' pathway.my[[1]]<-1:10
-#' pathway.my[[2]]<-5:15
+#' pathway.my[[1]]<-seq_len(10)
+#' pathway.my[[2]]<-seq(5,15)
 #' cumuNorWeight<-cal_cumNorWeight(weight.call,pathway.my)
 #' @export
 cal_cumNorWeight<-function(weight,posList){
@@ -182,10 +164,10 @@ cal_cumNorWeight<-function(weight,posList){
 #' @examples 
 #' #For a "cumuNorWeight" calculated from cal_cumNorWeight:
 #' weight.call<-c(0.1,0.2,0.5,0.7,0.9,1)
-#' names(weight.call)<-1:6
+#' names(weight.call)<-seq_len(6)
 #' pathway.my<-list()
-#' pathway.my[[1]]<-1:10
-#' pathway.my[[2]]<-5:15
+#' pathway.my[[1]]<-seq_len(10)
+#' pathway.my[[2]]<-seq(5,15)
 #' cumuNorWeight<-cal_cumNorWeight(weight.call,pathway.my)
 #' ES<-findES(cumuNorWeight)
 #' @export
@@ -207,7 +189,7 @@ findES<-function(cumWeight){
 #' @return A numeric vector of enrichment scores of randomly selected genes
 #' @examples 
 #' weight.call<-c(0.1,0.2,0.5,0.7,0.9,1)
-#' names(weight.call)<-1:6
+#' names(weight.call)<-seq_len(6)
 #' test.tmp<-perm_weightedKS_ofCSEA(weight.call,6)
 #' @export
 perm_weightedKS_ofCSEA<-function(weights,numOnList,nPermu=1000){
@@ -230,30 +212,30 @@ perm_weightedKS_ofCSEA<-function(weights,numOnList,nPermu=1000){
 #' @return A list of list, containing all the enrichment scores of each number of randomly selected genes.
 #' @examples 
 #' weight.call<-c(0.1,0.2,0.5,0.7,0.9,1)
-#' names(weight.call)<-1:6
+#' names(weight.call)<-seq_len(6)
 #' pathway.my<-list()
-#' pathway.my[[1]]<-1:10
-#' pathway.my[[2]]<-5:15
+#' pathway.my[[1]]<-seq_len(10)
+#' pathway.my[[2]]<-seq(5,15)
 #' myPermu.call<-construct_permuList(weight.call,pathway.my)
 #' @export
 construct_permuList<-function(weights.cp,posList,nPermu=1000){
     myPermu<-list()
     n<-0
-    for(k in seq_along(posList)){
+    for(k in seq(1,length(posList))){
         numOnList.call<-length(weights.cp[which(names(weights.cp) %in% posList[[k]])])
         if(numOnList.call<6){
         }else{
             tmp.index<-which(names(myPermu)==numOnList.call)
             if(length(tmp.index)==0){
                 n<-n+1
-                #print(paste("No preCal permutation data, calculate on-set gene number ",numOnList.call,sep=""))
+                #message(paste("No preCal permutation data, calculate on-set gene number ",numOnList.call,sep=""))
                 myPermu[[n]]<-perm_weightedKS_ofCSEA(weights.cp,numOnList.call,nPermu = 1000)
                 names(myPermu)[n]<-numOnList.call
-                #print("Done")
+                #message("Done")
             }
         }
         if(k %% 100==0){
-            print(paste("Finished ",k," posLists",sep=""))
+            message(paste("Finished ",k," posLists",sep=""))
         }
     }
     return(myPermu)
@@ -269,17 +251,17 @@ construct_permuList<-function(weights.cp,posList,nPermu=1000){
 #' @examples 
 #' ##For a "result" calculated from cal_uniConSig:
 #' weight.call<-c(0.1,0.2,0.5,0.7,0.9,1)
-#' names(weight.call)<-1:6
+#' names(weight.call)<-seq_len(6)
 #' pathway.my<-list()
-#' pathway.my[[1]]<-1:10
-#' pathway.my[[2]]<-5:15
+#' pathway.my[[1]]<-seq_len(10)
+#' pathway.my[[2]]<-seq(5,15)
 #' myPermu.call<-construct_permuList(weight.call,pathway.my)
 #' myNES<-weightedKS_ofCSEA(weight.call,pathway.my,myPermu.call)
 #' @export
 weightedKS_ofCSEA<-function(weights,positiveList,myPermu,nPermu=1000){
     NESResult<-c()
     pVResult<-c()
-    for(k in seq_along(positiveList)){
+    for(k in seq_len(length(positiveList))){
         myCumNorWeight<-cal_cumNorWeight(weights,positiveList[[k]])
         ES<-findES(myCumNorWeight)
         numOnList<-length(weights[which(names(weights) %in% positiveList[[k]])])
@@ -293,13 +275,13 @@ weightedKS_ofCSEA<-function(weights,positiveList,myPermu,nPermu=1000){
         }else{
             tmp.index<-which(names(myPermu)==numOnList)
             if(length(tmp.index)==0){
-                print(paste("No preCal permutation data, calculate number ",numOnList,sep=""))
+                message(paste("No preCal permutation data, calculate number ",numOnList,sep=""))
                 permu<-perm_weightedKS_ofCSEA(weights = weights,numOnList = numOnList,nPermu = nPermu)
                 tmp.num<-length(names(myPermu))+1
                 myPermu[[tmp.num]]<-permu
                 names(myPermu)[tmp.num]<-numOnList
-                print(paste("Adding new permutation data of on-set number:",numOnList,sep=""))
-                print("Done")
+                message(paste("Adding new permutation data of on-set number:",numOnList,sep=""))
+                message("Done")
             }else{
                 permu<-myPermu[[tmp.index]]
             }
@@ -315,7 +297,7 @@ weightedKS_ofCSEA<-function(weights,positiveList,myPermu,nPermu=1000){
             }
         }
         if(k %% 10000==0){
-            print(paste("Finished ",k," posLists",sep=""))
+            message(paste("Finished ",k," posLists",sep=""))
         }
     }
     myResult<-merge(NESResult,pVResult,by="row.names")
@@ -331,25 +313,34 @@ weightedKS_ofCSEA<-function(weights,positiveList,myPermu,nPermu=1000){
 #' @return A table of 3 columns, "pathway names","NES","pValue"
 #' @examples 
 #' ##For a training list, starting from uniConSig:
-#' trList.call<-1:100
+#' trList.call<-seq_len(100)
 #' result<-cal_uniConSig(trList.call)
 #' pathway.my<-list()
-#' pathway.my[[1]]<-1:10
-#' pathway.my[[2]]<-5:15
+#' pathway.my[[1]]<-c(1,10,100,10000,10001,10003,100033432) #entrez gene ids of a gene set
+#' pathway.my[[2]]<-c(100033413,100033430,100008589,100033417,100033416,100008588)
 #' result.csea<-CSEA(result,pathway.my)
 #' @export
 CSEA<-function(result.uniConSig,posList,nPermu=1000){
     result.uniConSig<-result.uniConSig[!result.uniConSig$gene.score==0,]
     tmp.weight<-result.uniConSig$gene.score
     names(tmp.weight)<-result.uniConSig$gene.id
-    print("Calculating permutations...")
+    message("Calculating permutations...")
     preCal.permutations<-construct_permuList(tmp.weight,posList)
-    print("Done.")
-    print("Calculating NES")
+    message("Done.")
+    message("Calculating NES")
     myFinal<-weightedKS_ofCSEA(tmp.weight,posList,preCal.permutations,nPermu)
-    print("Done")
-    myFinal<-myFinal[order(myFinal$NES,decreasing = TRUE),]
-    return(myFinal)
+    message("Done")
+    testNA<-myFinal[as.vector(myFinal$pValue) != "NA", ]
+    if(dim(testNA)[1]==0){
+      message("No available results. Returning NA.")
+      return(NA)
+    }else{
+      myFinal<-testNA
+      q.value.obj<-qvalue(myFinal$pValue,lambda=0)
+      myFinal$qValue<-q.value.obj$qvalues
+      myFinal<-myFinal[order(myFinal$NES,decreasing = TRUE),]
+      return(myFinal)
+    }
 }
 
 #Documentation of datasets
