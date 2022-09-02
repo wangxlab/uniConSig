@@ -1,0 +1,56 @@
+library(moments)
+
+##required for all calculations
+setwd("R:/CaGenome/Pipelines/DrWangPipeline/CSEA2/FromSanghoon/Development_Enrichmentplot")
+source("CSEA.modulesV2.3.2.R")
+gmtfile="ConceptDb20190624.rmCa.gmt"
+feature.list=read_gmt(gmtfile,min=10)
+feature.preCalfile=paste(gsub(".gmt","",gmtfile),".Ochiai.min10.preCal.gmt",sep="")
+#batch_calSimilarity(feature.list=feature.list,feature.preCalfile=feature.preCalfile,cutoff=0.05,minsize=10,method="Ochiai")
+preCalmatrix<- as.matrix(unlist(readLines(feature.preCalfile)[-1]),col=1)
+#################################################################
+
+####CalUniConSig for Cancer Gene
+CGC=read.table("./CancerGene/cancer_gene_census.csv",header=TRUE,sep=",")
+ca.uniConSig.all=cal.uniConSig(target.list=CGC$Gene.Symbol,feature.list,preCalmatrix,minsize=10,weight.cut=0.05,power=1,root=1,ECNpenalty=0.5,method="Ochiai") #method=="Ochiai" or "Jaccard"
+benchmark=foldCrossVal.benchmarkUniConSig(CGC$Gene.Symbol,feaure.list,preCalmatrix,fold=5,minsize=10,weight.cut=0.05,power=1,root=1,ECNpenalty=0.5,method="Ochiai")
+
+
+###Perform CSEA for dichotomous gene list from scDataset
+compare.list=c(read_gmt("J:/GenomeIndex/Pipeline_CSEA2/PathwayDb/h.all.v6.2.symbols.gmt",min=10),read_gmt("J:/GenomeIndex/Pipeline_CSEA2/PathwayDb/c2.cp.v6.2.symbols.gmt",min=10))
+target.list<-read.table ("J:/GenomeIndex/Pipeline_CSEA2/scDataset/downGenes_HSC_hgncSym.txt",header=FALSE,sep="\t")$V1
+uniConSig=cal.uniConSig(target.list=target.list,feature.list=feature.list,preCalmatrix,minsize=10,weight.cut=0.05,power=1,root=1,ECNpenalty=0.5,method="Ochiai")
+CSEA.result<-CSEA2(setNames(as.numeric(uniConSig$uniConSig), uniConSig$subjectID),compare.list,p.cut=0.05)
+
+###Perform CSEA for sorted gene list
+compare.list=c(read_gmt("./PathwayDb/h.all.v6.2.symbols.gmt",min=10),read_gmt("./Pipeline_CSEA2/PathwayDb/c2.cp.v6.2.symbols.gmt",min=10))
+limma=read.table("J:/GenomeIndex/Pipeline_CSEA2/CaKDDataset/DifferentialExpressionAnalysisByLimma_MDA-468_TP53KO.tsv",header=TRUE,sep="\t")
+weight=limma$T.Value
+names(weight)=limma$Gene.Sym
+ks.result=run.weightedKS(weight,feature.list,minsize=10,correct.overfit=FALSE)
+uniConSig.result=cal.uniConSig.ks(up.ks=ks.result[[1]],down.ks=ks.result[[2]],preCalmatrix,feature.list,outfile,p.cut=0.01,q.cut=0.25,NES.cut=0,power=1,root=1,ECNpenalty=0.5,correct.overfit=FALSE)
+up.CSEA.result<-CSEA2(target.score=setNames(as.numeric(uniConSig.result$up.uniConSig), uniConSig.result$subjectID),compare.list,p.cut=0.05)
+down.CSEA.result<-CSEA2(target.score=setNames(as.numeric(uniConSig.result$down.uniConSig), uniConSig.result$subjectID),compare.list,p.cut=0.05)
+up.disambiguate<-disambiguation(CSEA.result=up.CSEA.result,uniConSig.result=uniConSig.result,compare.list=compare.list,upPathways=TRUE,topn=30,p.cut=0.01)
+down.disambiguate<-disambiguation(CSEA.result=down.CSEA.result,uniConSig.result=uniConSig.result,compare.list=compare.list,upPathways=FALSE,topn=30,p.cut=0.01)
+
+###Perform CSEA for scRNAseq
+compare.list=c(read_gmt("./PathwayDb/h.all.v6.2.symbols.gmt",min=5),read_gmt("./PathwayDb/c2.cp.v6.2.symbols.gmt",min=5))
+limma=limmaDGE(gctFile="./scDataset/scData_quiescentVsActive.gct",clsFile="./scDataset/scData_quiescentVsActive.cls")
+weight=limma$Signed.Q.Value
+names(weight)=row.names(limma)
+ks.result=run.weightedKS(weight,signed=T,feature.list,minsize=10,correct.overfit=FALSE,correct.outlier=TRUE)
+uniConSig.result=cal.uniConSig.ks(up.ks=ks.result[[1]],down.ks=ks.result[[2]],preCalmatrix,feature.list,outfile,p.cut=0.01,q.cut=0.25,NES.cut=0,power=1,root=1,ECNpenalty=0.5,correct.overfit=FALSE)
+up.CSEA.result<-CSEA2(target.score=setNames(as.numeric(uniConSig.result$up.uniConSig), uniConSig.result$subjectID),compare.list,p.cut=0.05,minsize=5)
+down.CSEA.result<-CSEA2(target.score=setNames(as.numeric(uniConSig.result$down.uniConSig), uniConSig.result$subjectID),compare.list,p.cut=0.05,minsize=5)
+up.disambiguate<-disambiguation(CSEA.result=up.CSEA.result,uniConSig.result=uniConSig.result,compare.list=compare.list,upPathways=TRUE,topn=min(c(30,nrow(up.CSEA.result))),p.cut=0.01)
+down.disambiguate<-disambiguation(CSEA.result=down.CSEA.result,uniConSig.result=uniConSig.result,compare.list=compare.list,upPathways=FALSE,topn=min(c(30,nrow(down.CSEA.result))),p.cut=0.01)
+up.assoc <- pathwayAssociation(topPathway=up.disambiguate[[1]]$Compare.List[1:min(c(30,nrow(up.disambiguate[[1]])))],compare.list,feature.list,preCalmatrix,minsize=10)
+down.assoc <- pathwayAssociation(topPathway=down.disambiguate[[1]]$Compare.List[1:min(c(30,nrow(down.disambiguate[[1]])))],compare.list,feature.list,preCalmatrix,minsize=10)
+pathway.heatmap(matrixData=down.assoc,clustering = FALSE)
+
+#################################
+
+load("FigData.RData")
+source("CSEA.modulesV2.3.2.R")
+draw.pathway.v2(weight=weight,pathway="HALLMARK_E2F_TARGETS",pathway.list=compare.list)
