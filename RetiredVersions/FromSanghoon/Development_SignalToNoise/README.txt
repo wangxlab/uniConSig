@@ -1,0 +1,1 @@
+If there is is duplicate row in .gct file, R-GSEA doesn't work.
