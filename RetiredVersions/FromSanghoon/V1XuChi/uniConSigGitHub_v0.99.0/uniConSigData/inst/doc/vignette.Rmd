@@ -1,0 +1,46 @@
+---
+title: "Pre-calculated data for Universal Concept Signature calculation"
+author:
+- name: Xu Chi
+  affiliation: Beijing Institute of Genomics, CAS, Beijing, China
+output:
+  BiocStyle::html_document:
+vignette: >
+  %\VignetteIndexEntry{Pre-calculated data for Universal Concept Signature calculation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+# Usage
+```{r eval=FALSE}
+data(preCal.data)
+```
+
+# Data format
+***
+The class of this dataset is list of characters. Each element of the list is a line of characters containing
+the Entrez gene ID of a specific gene, the penalization factor of this gene in uniConSig algorithm, and the
+coefficients of the related molecular concepts used in uniConSig calculation. The information is tab delimited.
+After splitting, the first element is the Entrez gene ID, the second is the penalization factor, the
+rest of the line are the molecular concepts and their coefficients.
+
+```{r eval=FALSE}
+#check the first element
+data(preCal.data)
+preCal.data[[1]]
+```
+
+# Installation
+***
+
+To install this package, start R and enter:
+```{r eval=FALSE}
+## try http:// if https:// URLs are not supported
+source("https://bioconductor.org/biocLite.R")
+biocLite("preCal.data")
+```
+
+# Sessioninfo
+```{r}
+sessionInfo()
+```
+
