@@ -1,0 +1,8 @@
+ENSG00000000003_up	2	1.wm.ffpe.rt.rna	2.rc.ffpe.lt.rna
+ENSG00000000003_down	1	2.rc.ffpe.rt.rna	
+ENSG00000000005_up	2	1.wm.ffpe.lt.rna	3.dw.ffpe.lt.rna
+ENSG00000000419_up	1	1.wm.ffpe.rt.rna	
+ENSG00000000457_up	2	1.wm.ffpe.lt.rna	3.dw.ffpe.rt.rna
+ENSG00000000457_down	1	2.rc.ffpe.rt.rna	
+ENSG00000000460_up	1	2.rc.ffpe.lt.rna	
+ENSG00000000460_down	1	3.dw.ffpe.lt.rna	

@@ -1,0 +1,16 @@
+Package: uniConSig
+Type: Package
+Title: Fast calculation of uniConSig and CSEA
+Version: 0.99.1
+Depends: R (>= 3.5.0)
+Imports: utils
+Date: 2018-07-07
+Author: Xu Chi
+Maintainer: Xu Chi <wangxlab2018@gmail.com>
+Description: Using pre-calculated files to calculate the functional associations between a single gene and a gene set. Also implement down stream CSEA functions to facilitate pathway analysis.
+License: GPL-2
+biocViews: Software,FunctionalPrediction
+URL:https://github.com/wangxlab/uniConSig
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
+Suggests: BiocStyle, knitr, rmarkdown

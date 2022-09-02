@@ -1,0 +1,15 @@
+Package: uniConSigData
+Type: Package
+Title: Pre-calculated data for Universal Concept Signature calculation
+Version: 0.99.0
+Author: Xu Chi
+Maintainer: Xu Chi <xuchi_chisquare@hotmail.com>
+Description: This is a data package providing the coefficients needed
+    in the calculation of uniConSig
+License: GPL-2
+Encoding: UTF-8
+RoxygenNote: 6.0.1
+VignetteBuilder: knitr
+Suggests: BiocStyle, knitr, rmarkdown
+NeedsCompilation: no
+Packaged: 2018-11-10 05:00:29 UTC; XuChi
