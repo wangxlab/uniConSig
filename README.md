@@ -10,7 +10,7 @@ The current version is 2.0
 
 •	1. Xu Chi, Maureen A. Sartor, Sanghoon Lee, Meenakshi Anurag, Snehal Patil, Pelle Hall, Matthew Wexler, Xiaosong Wang#. Universal Concept Signature Analysis: Genome-Wide Quantification of New Biological and Pathological Functions of Genes and Pathways. Briefings in Bioinformatics, 2020 Sep 25;21(5):1717-1732.
 
-•	2. Letian Deng, Sanghoon Lee, Kai Wang, Yuhua Zhu, Maureen Sartor, Xiaosong Wang. IndepthPathway: an integrated tool for in-depth pathway enrichment analysis based on bulk and single cell sequencing data.biorxiv. https://doi.org/10.1101/2022.08.28.505179
+•	2. Lee S, Deng L, Wang Y, Wang K, Sartor MA, Wang XS# IndepthPathway: an integrated tool for in-depth pathway enrichment analysis based on single-cell sequencing data. Bioinformatics. 2023 Jun 1;39(6): btad325.
 
 ## A. Introduction
 
